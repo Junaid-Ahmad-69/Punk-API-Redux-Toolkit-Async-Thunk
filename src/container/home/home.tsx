@@ -1,6 +1,6 @@
+import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import type {AppDispatch, RootState} from "../../../store/store.ts";
-import {useEffect, useState} from "react";
 import {fetchBeers} from "@/features/beer/actions.ts";
 import {Loader} from "@/components/Loader";
 import {DataTable} from "@/components/Table";
@@ -8,13 +8,12 @@ import PaginationList from "@/components/Pagination";
 import {HomeHeading} from "../../../constants/data.tsx";
 import {useNavigate} from "react-router";
 import {ViewBeerDetail} from "../../../Routes/Route.tsx";
+import {setPage} from "@/features/beer/slice.ts";
 
 const Home = ()=> {
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
-    const {loading, error, data} = useSelector((state: RootState) => state.beer);
-
-    const [page, setPage] = useState<number>(1);
+    const {loading, error, page, data} = useSelector((state: RootState) => state.beer);
 
     useEffect(() => {
         dispatch(fetchBeers({page, per_page: 10}))
@@ -26,7 +25,7 @@ const Home = ()=> {
     if (error) {
         return <div>Error: {error}</div>;
     }
-    const handleChange = (value: number) => setPage(value)
+    const handleChange = (value: number) => dispatch(setPage(value))
 
     const handleNavigate= (id: string)=> navigate(ViewBeerDetail.replace(":id", id ))
     return (
@@ -42,7 +41,6 @@ const Home = ()=> {
                     />}
             </div>
         </div>
-
     )
 }
 export default Home
