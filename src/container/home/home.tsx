@@ -29,14 +29,13 @@ const Home = ()=> {
     const handleChange = (value: number) => setPage(value)
 
     const handleNavigate= (id: string)=> navigate(ViewBeerDetail.replace(":id", id ))
-
     return (
         <div className="container mx-auto py-24">
             <DataTable heading={HomeHeading} list={data} handleRowClick={handleNavigate} />
             <div className="my-12">
                 {data.length > ( data.length - 1 ) &&
                     <PaginationList
-                        limit={data.length}
+                        limit={10}
                         defaultPage={page}
                         totalCount={420}
                         handleChange={handleChange}

@@ -128,12 +128,8 @@ const ViewBeer = () => {
                             )}
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
-
         </div>
     )
 }
