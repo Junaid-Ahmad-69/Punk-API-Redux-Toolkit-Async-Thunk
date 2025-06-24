@@ -3,6 +3,7 @@ export interface BeerState {
     loading: boolean;
     error: string | null;
     current: BeersList;
+    page: number,
 }
 
 export  interface FetchBeersParams {

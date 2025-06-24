@@ -1,55 +1,82 @@
 import {
-    Pagination,
-    PaginationContent,
+    Pagination, PaginationContent,
+    PaginationEllipsis,
     PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from "@/components/ui/pagination"
+    PaginationLink, PaginationNext,
+    PaginationPrevious
+} from "@/components/ui/pagination.tsx";
 
-const PaginationList = ({defaultPage, handleChange, totalCount, limit}: {limit: number, defaultPage: number, totalCount: number, handleChange: (page: number) => void}) => {
+const PaginationList = ({
+                            defaultPage,
+                            handleChange,
+                            totalCount,
+                            limit
+                        }: {
+    limit: number;
+    defaultPage: number;
+    totalCount: number;
+    handleChange: (page: number) => void;
+}) => {
     const totalPages: number = Math.ceil(totalCount / limit);
     const MaxCountShow: number = 3;
-    const pages = [];
+    const pages: (number | string)[] = [];
+    const start = Math.max(2, defaultPage - 1);
+    const end = Math.min(totalPages - 1, defaultPage + 1);
+    if (defaultPage) {
+        pages.push(1);
+    }
+    if (defaultPage > MaxCountShow) {
+        pages.push('...');
+    }
+    for (let i = start; i <= end; i++) {
+        pages.push(i);
+    }
 
-    if (defaultPage <= MaxCountShow) {
-        for (let i = 1; i <= MaxCountShow; i++) {
-            pages.push(i);
-        }
+    if (defaultPage < totalPages - 2) {
         pages.push('...');
-        pages.push(totalPages);
-    } else if (defaultPage >= totalPages - MaxCountShow + 1) {
-        pages.push(1);
-        for (let i = totalPages - MaxCountShow + 1; i <= totalPages; i++) {
-            pages.push(i);
-        }
-    } else {
-        pages.push(1);
-        pages.push('...');
-        pages.push(defaultPage - 1);
-        pages.push(defaultPage);
-        pages.push(defaultPage + 1);
+    }
+    if (defaultPage <= totalPages) {
         pages.push(totalPages);
     }
+
     return (
         <Pagination>
             <PaginationContent>
                 <PaginationItem>
-                    <PaginationPrevious className="cursor-pointer" onClick={(prevState)=> handleChange(+prevState - 1 )}/>
+                    <PaginationPrevious
+                        className="cursor-pointer"
+                        onClick={() => handleChange(Math.max(1, defaultPage - 1))}
+                    />
                 </PaginationItem>
+
+                {pages.map((item, i) => (
+                    <PaginationItem key={i}>
+                        {item === '...' ? (
+                            <PaginationEllipsis/>
+                        ) : (
+                            <PaginationLink
+                                className={`${
+                                    defaultPage === item
+                                        ? 'hover:bg-black hover:text-white bg-black text-white'
+                                        : ''
+                                } cursor-pointer`}
+                                onClick={() => handleChange(+item)}
+                            >
+                                {item}
+                            </PaginationLink>
+                        )}
+                    </PaginationItem>
+                ))}
+
                 <PaginationItem>
-                    {pages.map((item, i)=> {
-                        return (
-                            <PaginationLink key={i} className="cursor-pointer" onClick={()=> handleChange(+item)}>{item}</PaginationLink>
-                        )
-                    })}
-                </PaginationItem>
-                <PaginationItem>
-                    <PaginationNext className="cursor-pointer" onClick={(prevState)=> handleChange(+prevState + 1 )}/>
+                    <PaginationNext
+                        className="cursor-pointer"
+                        onClick={() => handleChange(Math.min(totalPages, defaultPage + 1))}
+                    />
                 </PaginationItem>
             </PaginationContent>
         </Pagination>
+    );
+};
 
-    )
-}
-export default PaginationList
+export default PaginationList;

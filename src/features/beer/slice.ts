@@ -8,6 +8,7 @@ const initialState: BeerState = {
     data: [],
     loading: false,
     error: null,
+    page: 1,
     current: {
         abv: 0,
         attenuation_level: 0,
@@ -56,8 +57,13 @@ const initialState: BeerState = {
 const beerSlice = createSlice({
     name: 'beer',
     initialState,
-    reducers: {},
+    reducers: {
+        setPage(state, action) {
+            state.page = action.payload;
+        },
+    },
     extraReducers: (builder) => beerReducer(builder)
 });
 
+export const { setPage } = beerSlice.actions;
 export default beerSlice;
