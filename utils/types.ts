@@ -4,11 +4,19 @@ export interface BeerState {
     error: string | null;
     current: BeersList;
     page: number,
+    limit: number,
+    totalCount: number,
+    abv_gt?: number
+    ibu_gt?: number
+
 }
 
 export  interface FetchBeersParams {
     page: number;
     per_page: number;
+    abv_gt?: number
+    ibu_gt?: number
+
 }
 export  interface FetchBeerParam {
     id: string;

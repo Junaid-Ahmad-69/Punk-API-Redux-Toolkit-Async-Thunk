@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {beerReducer} from "@/features/beer/reducer.ts";
 import type {BeerState} from "../../../utils/types.ts";
-
+import { REHYDRATE } from 'redux-persist';
 
 
 const initialState: BeerState = {
@@ -9,6 +9,12 @@ const initialState: BeerState = {
     loading: false,
     error: null,
     page: 1,
+    limit: 10,
+    totalCount: 420,
+    // Filter States
+    abv_gt: 0,
+    ibu_gt: 0,
+
     current: {
         abv: 0,
         attenuation_level: 0,
@@ -51,6 +57,7 @@ const initialState: BeerState = {
             unit: ''
         }
     },
+
 };
 
 
@@ -61,9 +68,34 @@ const beerSlice = createSlice({
         setPage(state, action) {
             state.page = action.payload;
         },
+        setABV(state, action) {
+            state.abv_gt = action.payload;
+        },
+        setIBU(state, action) {
+            state.ibu_gt = action.payload;
+        },
+        // resetBeerState(state) {
+        //     Object.assign(state, initialState);
+        // }
     },
-    extraReducers: (builder) => beerReducer(builder)
+    extraReducers: (builder) => {
+        builder
+            .addCase(REHYDRATE, (_state, action) => {
+                const payload = (action as { payload?: { beer?: BeerState } }).payload;
+                if (payload?.beer) {
+                    return {
+                        ...payload.beer,
+                        page: 1,
+                        limit: 10,
+                        abv_gt: 0,
+                        ibu_get: 0,
+                    };
+                }
+                return _state
+            });
+        beerReducer(builder)
+    }
 });
 
-export const { setPage } = beerSlice.actions;
+export const { setPage, setABV, setIBU} = beerSlice.actions;
 export default beerSlice;
