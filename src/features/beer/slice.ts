@@ -12,8 +12,8 @@ const initialState: BeerState = {
     limit: 10,
     totalCount: 420,
     // Filter States
-    abv_gt: 0,
-    ibu_gt: 0,
+    abv_gt: null,
+    ibu_gt: null,
 
     current: {
         abv: 0,
@@ -87,8 +87,8 @@ const beerSlice = createSlice({
                         ...payload.beer,
                         page: 1,
                         limit: 10,
-                        abv_gt: 0,
-                        ibu_get: 0,
+                        abv_gt: null,
+                        ibu_get: null,
                     };
                 }
                 return _state

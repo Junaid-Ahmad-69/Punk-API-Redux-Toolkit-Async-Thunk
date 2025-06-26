@@ -4,9 +4,9 @@ import type {BeersList, FetchBeerParam, FetchBeersParams} from "../../../utils/t
 
 export const fetchBeers= createAsyncThunk<BeersList[], FetchBeersParams, { rejectValue: string }>(
     'beer/getAllBeers',
-    async (filters, { rejectWithValue }) => {
+    async (params, { rejectWithValue }) => {
         try {
-            return await BeerService.getBeerList(filters);
+            return await BeerService.getBeerList(params);
         } catch (error) {
             return rejectWithValue((error as Error).message);
         }

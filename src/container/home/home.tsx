@@ -10,6 +10,7 @@ import {useNavigate} from "react-router";
 import {ViewBeerDetail} from "../../../Routes/Route.tsx";
 import {setABV, setPage, setIBU} from "@/features/beer/slice.ts";
 import Filters from "@/components/Filters";
+import {useDebouncedEffect} from "@/hooks/useHooks.ts";
 
 
 const Home = () => {
@@ -17,29 +18,23 @@ const Home = () => {
     const dispatch = useDispatch<AppDispatch>();
     const {loading, error, page, data, limit, totalCount, abv_gt, ibu_gt} = useSelector((state: RootState) => state.beer);
 
-
     useEffect(() => {
-        const handler = setTimeout(() => {
-            // const abvValue = abv_gt?.toString().trim();
-            if (abv_gt !== 0 && abv_gt || ibu_gt !== 0 && ibu_gt ) {
-                dispatch(fetchBeers({
-                    page,
-                    per_page: limit,
-                    abv_gt,
-                    ibu_gt,
-                }));
-            } else {
-                dispatch(fetchBeers({
-                    page,
-                    per_page: limit
-                }));
-            }
-        }, 500);
+        dispatch(fetchBeers({
+            page,
+            per_page : limit,
+            abv_gt,
+            ibu_gt
+        }))
+    }, []);
 
-        return () => clearTimeout(handler);
-    }, [ibu_gt, abv_gt, page, limit]);
-
-
+    useDebouncedEffect(() => {
+        dispatch(fetchBeers({
+            page,
+            per_page :limit,
+            abv_gt,
+            ibu_gt
+        }))
+    }, [page, limit, abv_gt, ibu_gt], 500, true);
 
     if (loading) {
         return <Loader/>
@@ -52,6 +47,7 @@ const Home = () => {
 
     return (
         <div className="container mx-auto py-24">
+            <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
             <Filters
                 data={[
                     {
@@ -59,7 +55,7 @@ const Home = () => {
                         name: 'ABV',
                         label: 'Search By ABV',
                         placeholder: 'Search by ABV....',
-                        value: abv_gt,
+                        value: abv_gt ?? '',
                         handleChangeFilter: (value: string) => dispatch(setABV(value)),
                     },
                     {
@@ -67,11 +63,12 @@ const Home = () => {
                         name: 'IBU',
                         label: 'Search By IBU',
                         placeholder: 'Search by IBU....',
-                        value: ibu_gt,
+                        value: ibu_gt ?? '',
                         handleChangeFilter: (value: string) => dispatch(setIBU(value)),
                     }
                 ]}
             />
+            </div>
             <DataTable heading={HomeHeading} list={data} handleRowClick={handleNavigate}/>
             <div className="my-12">
                 {totalCount > limit &&

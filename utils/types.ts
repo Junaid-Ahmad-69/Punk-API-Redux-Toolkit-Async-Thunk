@@ -1,4 +1,4 @@
-export interface BeerState {
+export interface BeerState extends BeerFilter {
     data: [] | BeersList[];
     loading: boolean;
     error: string | null;
@@ -6,16 +6,16 @@ export interface BeerState {
     page: number,
     limit: number,
     totalCount: number,
-    abv_gt?: number
-    ibu_gt?: number
-
 }
 
-export  interface FetchBeersParams {
+export interface BeerFilter {
+    abv_gt?: null | string,
+    ibu_gt?: null | string,
+}
+
+export  interface FetchBeersParams extends BeerFilter {
     page: number;
     per_page: number;
-    abv_gt?: number
-    ibu_gt?: number
 
 }
 export  interface FetchBeerParam {
