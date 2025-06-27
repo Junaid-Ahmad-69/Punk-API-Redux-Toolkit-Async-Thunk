@@ -6,7 +6,6 @@ import { REHYDRATE } from 'redux-persist';
 
 const initialState: BeerState = {
     data: [],
-    loading: false,
     error: null,
     page: 1,
     limit: 10,
@@ -14,6 +13,8 @@ const initialState: BeerState = {
     // Filter States
     abv_gt: null,
     ibu_gt: null,
+    ebc_gt: null,
+    food: '',
 
     current: {
         abv: 0,
@@ -57,9 +58,7 @@ const initialState: BeerState = {
             unit: ''
         }
     },
-
 };
-
 
 const beerSlice = createSlice({
     name: 'beer',
@@ -73,6 +72,12 @@ const beerSlice = createSlice({
         },
         setIBU(state, action) {
             state.ibu_gt = action.payload;
+        },
+        setEBC(state, action) {
+            state.ebc_gt = action.payload;
+        },
+        setFood(state, action) {
+            state.food = action.payload;
         },
         // resetBeerState(state) {
         //     Object.assign(state, initialState);
@@ -89,6 +94,8 @@ const beerSlice = createSlice({
                         limit: 10,
                         abv_gt: null,
                         ibu_get: null,
+                        ebc_gt: null,
+                        food: '',
                     };
                 }
                 return _state
@@ -97,5 +104,5 @@ const beerSlice = createSlice({
     }
 });
 
-export const { setPage, setABV, setIBU} = beerSlice.actions;
+export const { setPage, setABV, setIBU, setEBC, setFood} = beerSlice.actions;
 export default beerSlice;
