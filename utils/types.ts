@@ -1,6 +1,5 @@
 export interface BeerState extends BeerFilter {
     data: [] | BeersList[];
-    loading: boolean;
     error: string | null;
     current: BeersList;
     page: number,
@@ -11,6 +10,9 @@ export interface BeerState extends BeerFilter {
 export interface BeerFilter {
     abv_gt?: null | string,
     ibu_gt?: null | string,
+    ebc_gt?: null | string,
+    food?: string,
+
 }
 
 export  interface FetchBeersParams extends BeerFilter {
@@ -81,4 +83,9 @@ export interface BeersList {
         number;
     volume:
         { value: number, unit: string }
+}
+
+export interface LoaderState {
+    requestCount: number;
+    isLoading: boolean;
 }

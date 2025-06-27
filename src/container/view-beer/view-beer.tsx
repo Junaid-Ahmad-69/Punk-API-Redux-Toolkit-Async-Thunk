@@ -3,7 +3,6 @@ import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import type {AppDispatch, RootState} from "../../../store/store.ts";
 import {fetchBeer} from "@/features/beer/actions.ts";
-import {Loader} from "@/components/Loader";
 import {Button} from "@/components/ui/button.tsx";
 import {Clock, Heart, ShoppingCart, Target, Thermometer} from "lucide-react";
 import BadgeItem from "@/components/Badge";
@@ -12,15 +11,13 @@ const ViewBeer = () => {
     const {id} = useParams();
     const dispatch = useDispatch<AppDispatch>();
 
-    const {loading, error, current} = useSelector((state: RootState) => state.beer);
+    const {error, current} = useSelector((state: RootState) => state.beer);
 
     useEffect(() => {
         if (!id) return
-        dispatch(fetchBeer({id}));
+        dispatch(fetchBeer({id}))
     }, [dispatch, id])
 
-
-    if (loading) return <Loader/>
     if (error) return <div>Error: {error}</div>
 
 
