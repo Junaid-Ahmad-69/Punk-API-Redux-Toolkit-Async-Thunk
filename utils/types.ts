@@ -15,12 +15,13 @@ export interface BeerFilter {
 
 }
 
-export  interface FetchBeersParams extends BeerFilter {
+export interface FetchBeersParams extends BeerFilter {
     page: number;
     per_page: number;
 
 }
-export  interface FetchBeerParam {
+
+export interface FetchBeerParam {
     id: string;
 }
 
@@ -88,4 +89,9 @@ export interface BeersList {
 export interface LoaderState {
     requestCount: number;
     isLoading: boolean;
+}
+
+export interface UserAuth {
+    user: null | string
+    error: string | null;
 }

@@ -9,7 +9,7 @@ import {useNavigate} from "react-router";
 import {ViewBeerDetail} from "../../../Routes/Route.tsx";
 import {setABV, setPage, setIBU, setEBC, setFood} from "@/features/beer/slice.ts";
 import Filters from "@/components/Filters";
-import {useDebouncedEffect} from "@/hooks/useHooks.ts";
+import GoogleActionSignOut from "@/components/GoogleActions/google-action-sign-out.tsx";
 
 
 const Home = () => {
@@ -34,7 +34,28 @@ const Home = () => {
         }))
     }, []);
 
-    useDebouncedEffect(() => {
+
+    useEffect(() => {
+        const interval = setTimeout(()=>{
+            dispatch(fetchBeers({
+                page,
+                per_page: limit,
+                abv_gt,
+                ibu_gt,
+                ebc_gt,
+                food,
+            }))
+        }, 500)
+        return () => {
+            clearTimeout(interval)
+        }
+    }, [page, limit, abv_gt, ibu_gt, ebc_gt, food]);
+
+
+
+    /*
+    NEED WHEN YOU COMPLETE OPTIMIZED THE REQUEST WITHOUT PERSIST FILTER
+     useDebouncedEffect(() => {
         dispatch(fetchBeers({
             page,
             per_page: limit,
@@ -44,6 +65,7 @@ const Home = () => {
             food,
         }))
     }, [page, limit, abv_gt, ibu_gt, ebc_gt, food], 500, true);
+     */
 
     if (error) {
         return <div>Error: {error}</div>;
@@ -53,6 +75,7 @@ const Home = () => {
 
     return (
         <div className="container mx-auto py-24">
+            <div><GoogleActionSignOut/></div>
             <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
                 <Filters
                     data={[
@@ -62,7 +85,7 @@ const Home = () => {
                             label: 'Search By ABV',
                             placeholder: 'Search by ABV....',
                             value: abv_gt ?? '',
-                            handleChangeFilter: (value: string) => dispatch(setABV(value)),
+                            handleChangeFilter: (e) => dispatch(setABV(e.target.value)),
                         },
                         {
                             type: 'number',
@@ -70,7 +93,7 @@ const Home = () => {
                             label: 'Search By IBU',
                             placeholder: 'Search by IBU....',
                             value: ibu_gt ?? '',
-                            handleChangeFilter: (value: string) => dispatch(setIBU(value)),
+                            handleChangeFilter: (e) => dispatch(setIBU(e.target.value)),
                         },
                         {
                             type: 'number',
@@ -78,7 +101,7 @@ const Home = () => {
                             label: 'Search By EBC',
                             placeholder: 'Search by EBC....',
                             value: ebc_gt ?? '',
-                            handleChangeFilter: (value: string) => dispatch(setEBC(value)),
+                            handleChangeFilter: (e) => dispatch(setEBC(e.target.value)),
                         },
                         {
                             type: 'text',
@@ -86,7 +109,7 @@ const Home = () => {
                             label: 'Search By Food',
                             placeholder: 'Search by Food....',
                             value: food ?? '',
-                            handleChangeFilter: (value: string) => dispatch(setFood(value)),
+                            handleChangeFilter: (e) => dispatch(setFood(e.target.value)),
                         }
                     ]}
                 />

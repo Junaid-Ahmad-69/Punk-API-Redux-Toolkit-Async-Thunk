@@ -1,3 +1,5 @@
+import type {ChangeEvent} from "react";
+
 export interface FiltersProps {
     data: {
         type: string;
@@ -5,6 +7,6 @@ export interface FiltersProps {
         label: string;
         placeholder: string;
         value: string;
-        handleChangeFilter: (value: string) => void;
+        handleChangeFilter: (e:ChangeEvent<HTMLInputElement>) => void;
     }[];
 }

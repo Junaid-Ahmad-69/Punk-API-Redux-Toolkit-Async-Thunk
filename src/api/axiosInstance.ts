@@ -1,17 +1,30 @@
 import axios from 'axios';
+import { clearSessionStorage, getSessionStorage } from "../../utils/helper.ts";
+import {ToasterMessage} from "@/components/Toast";
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_REACT_APP_BASE_URL,
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
     }
 });
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        const token = sessionStorage.getItem('token');
+        const token = getSessionStorage('user');
+
+        if (!token && window.location.pathname !== '/login') {
+            window.location.href = '/login';
+            ToasterMessage({
+                type: 'error',
+                message: 'Session expired',
+                description: 'Please login again',
+                duration: 5000
+            });
+            return Promise.reject(new axios.Cancel('No token available'));
+        }
+
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -25,14 +38,17 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
-        if (error.response?.status === 401) {
-            sessionStorage.removeItem('token');
-            sessionStorage.removeItem('userData');
-
+        if (error.response?.status === 401 || error.response?.status === 403) {
+            clearSessionStorage('token');
             if (window.location.pathname !== '/login') {
-                window.location.href = '/login?session_expired=true';
+                ToasterMessage({
+                    type: 'error',
+                    message: 'Session expired',
+                    description: 'Please login again',
+                    duration: 5000
+                });
+                window.location.href = '/login';
             }
-
             return Promise.reject({
                 message: 'Your session has expired. Please log in again.',
                 isSessionExpired: true
