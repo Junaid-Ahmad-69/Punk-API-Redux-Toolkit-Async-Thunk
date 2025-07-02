@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {beerReducer} from "@/features/beer/reducer.ts";
 import type {BeerState} from "../../../utils/types.ts";
-import { REHYDRATE } from 'redux-persist';
+import {REHYDRATE} from 'redux-persist';
 
 
 const initialState: BeerState = {
@@ -10,7 +10,7 @@ const initialState: BeerState = {
     page: 1,
     limit: 10,
     totalCount: 420,
-    // Filter States
+    /***** Filter States *****/
     abv_gt: null,
     ibu_gt: null,
     ebc_gt: null,
@@ -104,5 +104,5 @@ const beerSlice = createSlice({
     }
 });
 
-export const { setPage, setABV, setIBU, setEBC, setFood} = beerSlice.actions;
+export const {setPage, setABV, setIBU, setEBC, setFood} = beerSlice.actions;
 export default beerSlice;

@@ -2,8 +2,16 @@ import {type ChangeEvent, useState} from "react";
 import {InputWithLabel} from "@/components/Input";
 import {Button} from "@/components/ui/button.tsx";
 import {loginSchema} from "@/schemas/loginSchema.tsx";
+import {useNavigate} from "react-router";
+import {useDispatch} from "react-redux";
+import {loginWithEmail} from "@/features/auth/actions.ts";
+import {HomeRoute} from "../../../Routes/Route.tsx";
+import type {AppDispatch} from "../../../store/store.ts";
 
 export default function Login() {
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch<AppDispatch>()
     const [userInput, setUserInput] = useState<Record<string, string>>({
         email: '',
         password: '',
@@ -44,7 +52,12 @@ export default function Login() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (validateForm()) {
-            console.log('Form is valid:', userInput);
+            dispatch(loginWithEmail({
+                    email: userInput.email,
+                    password: userInput.password
+                })
+            )
+            navigate(HomeRoute, {replace: true});
         }
     };
 
