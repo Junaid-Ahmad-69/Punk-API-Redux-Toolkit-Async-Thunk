@@ -91,7 +91,16 @@ export interface LoaderState {
     isLoading: boolean;
 }
 
+export interface UserInfo {
+    name?: string;
+    email: string;
+    password?: string;
+    token?: string;
+    picture?: string;
+}
+
+
 export interface UserAuth {
-    user: null | string
+    user: UserInfo | null
     error: string | null;
 }
