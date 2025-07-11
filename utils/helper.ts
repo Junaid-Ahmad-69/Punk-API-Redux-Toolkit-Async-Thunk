@@ -6,14 +6,19 @@ export const cleanParams = (params: FetchBeersParams) =>
             value !== '' && value !== null && value !== undefined
         )
     );
+export const getSessionStorage = (key: string): string | null => {
+    if (typeof window !== 'undefined') {
+        return sessionStorage.getItem(key);
+    }
+    return null;
+};
 
-export const setSessionStorage = (key:string, Item: string) =>{
-    sessionStorage.setItem(key, Item);
-}
+export const setSessionStorage = (key: string, value: never): void => {
+    if (typeof window !== 'undefined') {
+        sessionStorage.setItem(key, JSON.stringify(value));
+    }
+};
 
-export const getSessionStorage = (key:string) =>{
-     return  sessionStorage.getItem(key) || null
-}
 
 export const clearSessionStorage = (key:string) =>{
     sessionStorage.removeItem(key)
