@@ -15,8 +15,7 @@ export const loginWithEmail = createAsyncThunk(
                 email,
                 password,
             };
-            console.log(email, password)
-            setSessionStorage('user', JSON.stringify(mockUser));
+            setSessionStorage('user', mockUser as never);
             ToasterMessage({
                 type: "success",
                 message: "Email Login Successful!",
@@ -41,7 +40,7 @@ export const loginWithGoogle = createAsyncThunk(
                 email: userInfo.email,
                 picture: userInfo.picture
             }
-            setSessionStorage('user', JSON.stringify(googleSession))
+            setSessionStorage('user', googleSession as never)
             return googleSession;
         } catch (error) {
             return rejectWithValue((error as Error).message|| 'Invalid Google credential');

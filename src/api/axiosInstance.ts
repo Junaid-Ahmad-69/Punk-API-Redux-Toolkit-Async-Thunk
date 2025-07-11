@@ -12,7 +12,8 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        const token = getSessionStorage('user');
+        const userData = getSessionStorage('user');
+        const { token } = userData ? JSON.parse(userData) : { token: null };
 
         if (!token && window.location.pathname !== '/login') {
             window.location.href = '/login';
@@ -39,7 +40,7 @@ axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 401 || error.response?.status === 403) {
-            clearSessionStorage('token');
+            clearSessionStorage('user');
             if (window.location.pathname !== '/login') {
                 ToasterMessage({
                     type: 'error',

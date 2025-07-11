@@ -1,12 +1,20 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import type {UserAuth} from "../../../utils/types.ts";
+import type {UserAuth, UserInfo} from "../../../utils/types.ts";
 import {userReducer} from "@/features/auth/reducer.ts";
 import {clearSessionStorage} from "../../../utils/helper.ts";
 import {ToasterMessage} from "@/components/Toast";
 
 
+const getInitialUser = (): UserInfo | null => {
+    const userData = sessionStorage.getItem('user');
+    try {
+        return userData ? JSON.parse(userData) as UserInfo : null;
+    } catch {
+        return null;
+    }
+};
 const initialState: UserAuth = {
-    user: JSON.parse(sessionStorage.getItem('user') || 'null'),
+    user: getInitialUser(),
     error: null
 }
 
