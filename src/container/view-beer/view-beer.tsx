@@ -7,6 +7,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {Clock, Heart, ShoppingCart, Target, Thermometer} from "lucide-react";
 import BadgeItem from "@/components/Badge";
 import {addItem, removeItem, type WishlistItem} from "@/features/wishlist/slice.ts";
+import type {BeersList} from "../../../utils/types.ts";
 
 const ViewBeer = () => {
     const {id} = useParams();
@@ -21,8 +22,8 @@ const ViewBeer = () => {
         dispatch(fetchBeer({id}))
     }, [dispatch, id])
 
-    const handleAddItem = (item: WishlistItem) => {
-        dispatch(addItem(item));
+    const handleAddItem = (item: BeersList) => {
+        dispatch(addItem(item as WishlistItem));
     }
     const handleRemoveItem = (id: string) => {
         dispatch(removeItem(id));

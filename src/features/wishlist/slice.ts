@@ -61,7 +61,7 @@ const wishlistSlice = createSlice({
             sessionStorage.setItem('wishlist', JSON.stringify(state.items));
         },
         removeItem: (state, action: PayloadAction<string>) => {
-            state.items = state.items.filter(item => item.id !== action.payload);
+            state.items = state.items.filter(item => item.id != action.payload);
             sessionStorage.setItem('wishlist', JSON.stringify(state.items));
         },
         clearWishlist: (state) => {
