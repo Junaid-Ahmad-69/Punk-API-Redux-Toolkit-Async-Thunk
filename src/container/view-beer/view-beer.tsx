@@ -6,17 +6,28 @@ import {fetchBeer} from "@/features/beer/actions.ts";
 import {Button} from "@/components/ui/button.tsx";
 import {Clock, Heart, ShoppingCart, Target, Thermometer} from "lucide-react";
 import BadgeItem from "@/components/Badge";
+import {addItem, removeItem, type WishlistItem} from "@/features/wishlist/slice.ts";
 
 const ViewBeer = () => {
     const {id} = useParams();
     const dispatch = useDispatch<AppDispatch>();
 
     const {error, current} = useSelector((state: RootState) => state.beer);
+    const wishlist = useSelector((state: RootState) => state.wishListReducer.items);
+    const existing = !!wishlist.find(item=> item.id == id)
 
     useEffect(() => {
         if (!id) return
         dispatch(fetchBeer({id}))
     }, [dispatch, id])
+
+    const handleAddItem = (item: WishlistItem) => {
+        dispatch(addItem(item));
+    }
+    const handleRemoveItem = (id: string) => {
+        dispatch(removeItem(id));
+
+    }
 
     if (error) return <div>Error: {error}</div>
 
@@ -61,11 +72,21 @@ const ViewBeer = () => {
                                 <ShoppingCart size={20} className="text-white"/>
                                 Add to Cart
                             </Button>
-                            <Button
+                            {existing ?
+                                (
+                                    <Button
+                                        onClick={() => handleRemoveItem(current.id)}
+                                        className="cursor-pointer bg-red-500  text-white flex gap-2 items-center px-8 py-[20px] rounded-md hover:bg-red-400">
+                                        <Heart size={20} className="text-white"/>
+                                        Remove
+                                    </Button>
+                                ):(
+                                <Button
+                                onClick={() => handleAddItem(current)}
                                 className="cursor-pointer bg-gray-200 flex gap-2 items-center  text-gray-800 px-8 py-[20px] rounded-md hover:bg-gray-300 ">
                                 <Heart size={20} className="text-black"/>
                                 Wishlist
-                            </Button>
+                            </Button>)}
                         </div>
 
                         <div>

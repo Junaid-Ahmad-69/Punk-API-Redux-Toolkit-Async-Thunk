@@ -9,7 +9,7 @@ import {useNavigate} from "react-router";
 import {ViewBeerDetail} from "../../../Routes/Route.tsx";
 import {setABV, setPage, setIBU, setEBC, setFood} from "@/features/beer/slice.ts";
 import Filters from "@/components/Filters";
-import GoogleActionSignOut from "@/components/GoogleActions/google-action-sign-out.tsx";
+import Logout from "@/components/GoogleActions/logout.tsx";
 import EmptyPlaceholder from "@/components/EmptyPlaceholder";
 import NoBeerPlaceholder from "../../assets/images/home/no-beer.svg"
 
@@ -92,9 +92,7 @@ const Home = () => {
 
     return (
         <>
-            <div className="container mx-auto py-24">
-                <div><GoogleActionSignOut/></div>
-
+            <div className="container mx-auto py-4">
                 <div className="grid md:grid-cols-4 grid-cols-2 gap-4">
                     <Filters
                         data={[
