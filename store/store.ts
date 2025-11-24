@@ -4,11 +4,13 @@ import {persistReducer, persistStore} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import loaderSlice from "@/features/loader/slice.ts";
 import userAuthSlice from "@/features/auth/slice.ts";
+import wishlistSlice from "@/features/wishlist/slice.ts";
 
 const rootReducer = combineReducers({
     beer: beerSlice.reducer,
     loader: loaderSlice.reducer,
     userAuth: userAuthSlice.reducer,
+    wishListReducer: wishlistSlice.reducer
 });
 
 const persistConfig = {

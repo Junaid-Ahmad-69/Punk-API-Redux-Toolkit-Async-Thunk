@@ -4,21 +4,26 @@ import Home from "@/container/home/home.tsx";
 import PublicRoute from "../Routes/PublicRoute.tsx";
 import PrivateRoute from "../Routes/PrivateRoute.tsx";
 import ViewBeer from "@/container/view-beer/view-beer.tsx";
-import {HomeRoute, LoginRoute, ViewBeerDetail} from "../Routes/Route.tsx";
+import {HomeRoute, LoginRoute, ViewBeerDetail, Wishlist as WishListRoute} from "../Routes/Route.tsx";
 import {NotFound} from "@/container/NotFound";
+import DashboardLayout from "@/layouts/dashboardLayout.tsx";
+import WishList from "@/container/wishlist/wishlist.tsx";
 
 
 function App() {
     return (
         <Routes>
-            <Route element={<PublicRoute />}>
-                <Route path={LoginRoute} Component={AuthLogin} />
+            <Route element={<PublicRoute/>}>
+                <Route path={LoginRoute} Component={AuthLogin}/>
             </Route>
-            <Route element={<PrivateRoute />}>
-                <Route path={HomeRoute} Component={Home} />
-                <Route path={ViewBeerDetail} Component={ViewBeer} />
+            <Route element={<PrivateRoute/>}>
+                <Route element={<DashboardLayout/>}>
+                    <Route path={HomeRoute} Component={Home}/>
+                    <Route path={ViewBeerDetail} Component={ViewBeer}/>
+                    <Route path={WishListRoute} Component={WishList}/>
+                </Route>
             </Route>
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<NotFound/>}/>
         </Routes>
     )
 }

@@ -7,7 +7,7 @@ import type {AppDispatch} from "../../../store/store.ts";
 
 
 
-function GoogleActionSignOut() {
+function Logout({btnClass}: {btnClass?: string}) {
 
     const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>()
@@ -18,6 +18,6 @@ function GoogleActionSignOut() {
         navigate(LoginRoute, {replace: true})
     }
 
-    return <Button className="cursor-pointer" onClick={handleLogout}>Sign Out</Button>
+    return <Button className={`cursor-pointer ${btnClass}`} onClick={handleLogout}>Logout</Button>
 }
-export default GoogleActionSignOut;
+export default Logout;
