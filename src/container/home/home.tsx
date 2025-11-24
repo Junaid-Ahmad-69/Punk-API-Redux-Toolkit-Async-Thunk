@@ -9,7 +9,6 @@ import {useNavigate} from "react-router";
 import {ViewBeerDetail} from "../../../Routes/Route.tsx";
 import {setABV, setPage, setIBU, setEBC, setFood} from "@/features/beer/slice.ts";
 import Filters from "@/components/Filters";
-import Logout from "@/components/GoogleActions/logout.tsx";
 import EmptyPlaceholder from "@/components/EmptyPlaceholder";
 import NoBeerPlaceholder from "../../assets/images/home/no-beer.svg"
 
