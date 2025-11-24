@@ -1,5 +1,5 @@
 import type {AppDispatch, RootState} from "../../../store/store.ts";
-import {removeItem} from '@/features/wishlist/slice';
+import {clearWishlist, removeItem} from '@/features/wishlist/slice';
 import {useDispatch, useSelector} from "react-redux";
 import GButton from "@/components/Button/Button.tsx";
 import {useNavigate} from "react-router";
@@ -29,10 +29,20 @@ const WishList = () => {
         dispatch(removeItem(confirmId));
 
     }
+    const handleClearCart=()=>{
+        dispatch(clearWishlist())
+    }
 
     return (
         <div>
+            <div className='flex items-center justify-between w-full'>
             <h2 className="text-xl font-bold">My Wishlist</h2>
+                {!!wishlist.length && (
+                    <GButton onclick={()=>handleClearCart()} className='bg-transparent hover:text-slate-600 border rounded-md text-slate-600 font-medium border-slate-600'>
+                        Clear Cart
+                    </GButton>
+                )}
+            </div>
             {wishlist.length === 0 && <EmptyPlaceholder width={600} height={400} name={"wishlist"} url={EmptyPlaceholderImage} content={"Your Wishlist is Empty!"} />}
 
             <ul>

@@ -1,4 +1,5 @@
 import { createSlice,  type PayloadAction  } from '@reduxjs/toolkit';
+import {ToasterMessage} from "@/components/Toast";
 
 export interface WishlistItem {
     abv: 0,
@@ -57,16 +58,34 @@ const wishlistSlice = createSlice({
     reducers: {
         addItem: (state, action: PayloadAction<WishlistItem>) => {
             const exists = state.items.find(item => item.id == action.payload.id);
-            if (!exists) state.items.push(action.payload);
+            if (!exists) {
+                state.items.push(action.payload)
+                ToasterMessage({
+                    type: "success",
+                    message: "Successfully Added!",
+                    description: "Product successfully added to wishlist.",
+                });
+            };
             sessionStorage.setItem('wishlist', JSON.stringify(state.items));
+
         },
         removeItem: (state, action: PayloadAction<string>) => {
             state.items = state.items.filter(item => item.id != action.payload);
             sessionStorage.setItem('wishlist', JSON.stringify(state.items));
+            ToasterMessage({
+                type: "success",
+                message: "Successfully Removed!",
+                description: "Product successfully removed from wishlist.",
+            });
         },
         clearWishlist: (state) => {
             state.items = [];
             sessionStorage.removeItem('wishlist');
+            ToasterMessage({
+                type: "success",
+                message: "Successfully Empty!",
+                description: "No data in wishlist.",
+            });
         },
     },
 });

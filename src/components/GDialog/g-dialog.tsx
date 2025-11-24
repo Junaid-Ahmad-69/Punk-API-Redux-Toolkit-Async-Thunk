@@ -43,14 +43,11 @@ const GDialog = ({
                     {description &&
                         <DialogDescription className={cn(descriptionClass)}>{description}</DialogDescription>}
                 </DialogHeader>
-
                 {content}
-
                 <DialogFooter>
                     <DialogClose asChild>
                         <Button variant="outline">{cancelText || "Cancel"}</Button>
                     </DialogClose>
-
                     <Button onClick={handleSave}>{confirmText || "Confirm"}</Button>
                 </DialogFooter>
             </DialogContent>
