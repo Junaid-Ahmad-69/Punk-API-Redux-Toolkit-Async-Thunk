@@ -37,7 +37,7 @@ export interface BeersList {
     first_brewed: string;
     food_pairing: string[]
     ibu: number;
-    id: number;
+    id: string;
     image: string
     ingredients: {
         malt: {

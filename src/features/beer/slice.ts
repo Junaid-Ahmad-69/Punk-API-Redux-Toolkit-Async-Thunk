@@ -30,7 +30,7 @@ const initialState: BeerState = {
         first_brewed: '',
         food_pairing: [],
         ibu: 0,
-        id: 0,
+        id: '',
         image: '',
         ingredients: {
             malt: [],
