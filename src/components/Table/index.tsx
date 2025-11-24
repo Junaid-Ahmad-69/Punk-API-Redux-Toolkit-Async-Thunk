@@ -17,7 +17,7 @@ export const DataTable = ({heading, list, handleRowClick}: { heading: string[], 
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {list.map(item => {
+                {list.length > 0 && list?.map(item => {
                     return (
                         <TableRow key={item.id}>
                             <TableCell>{item.id}</TableCell>
