@@ -1,6 +1,7 @@
 import { createSlice,  type PayloadAction  } from '@reduxjs/toolkit';
 import {ToasterMessage} from "@/components/Toast";
 import type {BeersList} from "../../../utils/types.ts";
+import {clearSessionStorage, setSessionStorage} from "../../../utils/helper.ts";
 
 
 interface WishlistState {
@@ -24,13 +25,13 @@ const wishlistSlice = createSlice({
                     message: "Successfully Added!",
                     description: "Product successfully added to wishlist.",
                 });
-            };
-            sessionStorage.setItem('wishlist', JSON.stringify(state.items));
+            }
+            setSessionStorage('wishlist', state.items)
 
         },
         removeItem: (state, action: PayloadAction<string>) => {
             state.items = state.items.filter(item => item.id != action.payload);
-            sessionStorage.setItem('wishlist', JSON.stringify(state.items));
+            setSessionStorage('wishlist', state.items);
             ToasterMessage({
                 type: "success",
                 message: "Successfully Removed!",
@@ -39,7 +40,7 @@ const wishlistSlice = createSlice({
         },
         clearWishlist: (state) => {
             state.items = [];
-            sessionStorage.removeItem('wishlist');
+            clearSessionStorage('wishlist');
             ToasterMessage({
                 type: "success",
                 message: "Successfully Empty!",

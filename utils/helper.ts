@@ -13,7 +13,7 @@ export const getSessionStorage = (key: string): string | null => {
     return null;
 };
 
-export const setSessionStorage = (key: string, value: never): void => {
+export const setSessionStorage = (key: string, value: unknown): void => {
     if (typeof window !== 'undefined') {
         sessionStorage.setItem(key, JSON.stringify(value));
     }

@@ -1,7 +1,7 @@
 import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import {ToasterMessage} from "@/components/Toast";
 import type {BeersList} from "../../../utils/types.ts";
-import {getSessionStorage} from "../../../utils/helper.ts";
+import {getSessionStorage, setSessionStorage} from "../../../utils/helper.ts";
 
 
 export interface CartListItems extends BeersList{
@@ -43,11 +43,11 @@ const cartSlice = createSlice({
                 });
             }
             state.cartTotal =  state.cartLists.reduce((acc:number, curr: CartListItems)=> (acc + curr.price) * curr.productQty, 0)
-            sessionStorage.setItem('cart', JSON.stringify(state.cartLists));
+            setSessionStorage('cart', state.cartLists);
         },
         removeFromCart: (state, action: PayloadAction<string>) => {
             state.cartLists = state.cartLists.filter(item=> item.id != action.payload);
-            sessionStorage.setItem('cart', JSON.stringify(state.cartLists));
+            setSessionStorage('cart', state.cartLists);
             ToasterMessage({
                 type: "success",
                 message: "Successfully Removed!",
@@ -60,7 +60,7 @@ const cartSlice = createSlice({
             if(item){
                 item.productQty = action.payload.qty;
                 state.cartTotal = state.cartLists.reduce((acc: number, curr: CartListItems)=> acc + curr.price * curr.productQty, 0)
-                sessionStorage.setItem('cart', JSON.stringify(state.cartLists));
+                setSessionStorage('cart', state.cartLists);
             }
 }
     }

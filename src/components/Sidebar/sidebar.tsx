@@ -14,6 +14,7 @@ import {Home, Heart} from "lucide-react"
 import {HomeRoute, Wishlist} from "../../../Routes/Route.tsx";
 import GDropdown from "@/components/Dropdown/dropdown.tsx";
 import Logo from '../../../public/logo.png'
+import {useLocation} from "react-router";
 const items = [
     {
         title: "Home",
@@ -28,6 +29,9 @@ const items = [
 ]
 
 const AppSidebar = () => {
+    const location = useLocation();
+    const isActive = (url: string) => location.pathname === url;
+
     const { open } = useSidebar();
     return (
         <Sidebar collapsible="icon" side="left" variant="sidebar">
@@ -44,12 +48,11 @@ const AppSidebar = () => {
 
             <SidebarContent>
                 <SidebarGroup>
-                    {/*<SidebarGroupLabel></SidebarGroupLabel>*/}
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild>
+                                    <SidebarMenuButton asChild  data-active={isActive(item.url)}>
                                         <a href={item.url} className="flex items-center gap-2">
                                             <item.icon/>
                                             <span>{item.title}</span>
