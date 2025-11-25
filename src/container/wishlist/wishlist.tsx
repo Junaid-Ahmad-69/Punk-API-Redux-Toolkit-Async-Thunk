@@ -11,8 +11,10 @@ import EmptyPlaceholderImage from '../../../src/assets/images/wishlist/wishlist-
 
 const WishList = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const wishlist = useSelector((state: RootState) => state.wishListReducer.items);
     const navigate = useNavigate()
+
+    const wishlist = useSelector((state: RootState) => state.wishListReducer.items);
+
     const [open, setOpen] = useState<boolean>(false)
     const [confirmId, setConfirmId] = useState<string>('')
 
@@ -39,7 +41,7 @@ const WishList = () => {
             <h2 className="text-xl font-bold">My Wishlist</h2>
                 {!!wishlist.length && (
                     <GButton onclick={()=>handleClearCart()} className='bg-transparent hover:text-slate-600 border rounded-md text-slate-600 font-medium border-slate-600'>
-                        Clear Cart
+                        Clear Wishlish
                     </GButton>
                 )}
             </div>

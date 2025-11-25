@@ -1,51 +1,10 @@
 import { createSlice,  type PayloadAction  } from '@reduxjs/toolkit';
 import {ToasterMessage} from "@/components/Toast";
+import type {BeersList} from "../../../utils/types.ts";
 
-export interface WishlistItem {
-    abv: 0,
-    attenuation_level: 0,
-    boil_volume: {
-        value: 0,
-        unit: ''
-    },
-    brewers_tips: '',
-    contributed_by: '',
-    description: '',
-    ebc: 0,
-    first_brewed: '',
-    food_pairing: [],
-    ibu: 0,
-    id: '',
-    image: '',
-    ingredients: {
-        malt: [],
-        hops: [],
-        yeast: ''
-    },
-    method: {
-        mash_temp: [],
-        fermentation: {
-            temp: {
-                value: 0,
-                unit: ''
-            }
-        },
-        twist: null
-    },
-    name: '',
-    ph: 0,
-    srm: 0,
-    tagline: '',
-    target_fg: 0,
-    target_og: 0,
-    volume: {
-        value: 0,
-        unit: ''
-    }
-}
 
 interface WishlistState {
-    items: WishlistItem[];
+    items: BeersList[];
 }
 
 const initialState: WishlistState = {
@@ -56,7 +15,7 @@ const wishlistSlice = createSlice({
     name: 'wishlist',
     initialState,
     reducers: {
-        addItem: (state, action: PayloadAction<WishlistItem>) => {
+        addItem: (state, action: PayloadAction<BeersList>) => {
             const exists = state.items.find(item => item.id == action.payload.id);
             if (!exists) {
                 state.items.push(action.payload)
