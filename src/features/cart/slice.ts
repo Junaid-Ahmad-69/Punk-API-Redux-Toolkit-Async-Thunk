@@ -54,35 +54,17 @@ const cartSlice = createSlice({
                 description: "Product successfully removed from cart.",
             });
             state.cartTotal =  state.cartLists.reduce((acc:number, curr: CartListItems)=> (acc + curr.price) * curr.productQty, 0)
-
-        }
+        },
+        updateQty: (state, action: PayloadAction<{ id: string, qty: number }>) => {
+            const item = state.cartLists.find(item=>item.id === action.payload.id);
+            if(item){
+                item.productQty = action.payload.qty;
+                state.cartTotal = state.cartLists.reduce((acc: number, curr: CartListItems)=> acc + curr.price * curr.productQty, 0)
+                sessionStorage.setItem('cart', JSON.stringify(state.cartLists));
+            }
+}
     }
 })
 
-export const {addToCart, removeFromCart} = cartSlice.actions;
+export const {addToCart, removeFromCart, updateQty} = cartSlice.actions;
 export default cartSlice
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

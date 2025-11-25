@@ -1,40 +1,34 @@
-import {useState} from "react";
 import GButton from "@/components/Button/Button.tsx";
-import type {BeersList} from "../../../utils/types.ts";
-// import {useDispatch, useSelector} from "react-redux";
-// import type {AppDispatch, RootState} from "../../../store/store.ts";
-
- interface Props extends BeersList{
-    price: number,
-    productQty: number,
-}
+import {useDispatch, useSelector} from "react-redux";
+import type {AppDispatch, RootState} from "../../../store/store.ts";
+import {updateQty} from "@/features/cart/slice.ts";
 
 
-const CartCounter = (product: Props) => {
-    // const dispatch = useDispatch<AppDispatch>();
-    // const {cartLists} = useSelector((state: RootState)=> state.cartReducer)
+const CartCounter = ({id}: { id: string }) => {
+    const dispatch = useDispatch<AppDispatch>();
+    const item = useSelector((state: RootState) => state.cartReducer.cartLists.find(c => c.id === id));
+    if (!item) return null
 
-
-
-    const [qty, setQty] = useState<number>(Number(product.productQty));
 
     const handleDecrement = () => {
-        setQty((prevState) => prevState > 1 ? prevState - 1 : 1);
-
+        dispatch(updateQty({id, qty: Math.max(1, item.productQty - 1)}));
     }
     const handleIncrement = () => {
-        setQty((prevState) => prevState + 1);
+        dispatch(updateQty({
+            id,
+            qty: item.productQty + 1,
+        }))
     }
 
     return (
-        <div className='flex items-center gap-4'>
+        <div className='flex items-center gap-3'>
             <GButton
                 onclick={handleDecrement}
-                className='rounded-md hover:bg-black duration-500 transition-all text-black text-lg hover:text-white bg-transparent border border-black ease-in-out '> - </GButton>
-            {qty}
+                className='rounded-md p-3 h-8 hover:bg-yellow-500 hover:border-yellow-500 duration-500 transition-all text-black text-lg hover:text-white bg-transparent border  border-yellow-300 ease-in-out '> - </GButton>
+            {item.productQty}
             <GButton
                 onclick={handleIncrement}
-                className='rounded-md hover:bg-black duration-500 transition-all text-black text-lg hover:text-white bg-transparent border border-black ease-in-out '> + </GButton>
+                className='rounded-md p-3 h-8 hover:bg-yellow-500 hover:border-yellow-500  duration-500 transition-all text-black text-lg hover:text-white bg-transparent border border-yellow-300 ease-in-out '> + </GButton>
         </div>
     )
 }

@@ -21,7 +21,6 @@ const ViewBeer = () => {
 
     const existingWishList = !!wishlist.find(item => item.id == id);
     const existingCartItem = !!cartLists.find(item => item.id == id);
-    console.log(existingCartItem)
 
 
     useEffect(() => {
@@ -29,7 +28,7 @@ const ViewBeer = () => {
         dispatch(fetchBeer({id}))
     }, [dispatch, id])
 
-    // added price key in single product
+    // Added price key in single product
     if (!id) return
     const currentProduct = {
         ...current,
@@ -87,10 +86,10 @@ const ViewBeer = () => {
                         <div className="flex space-x-4 mb-6">
                             {!existingCartItem ? <Button
                                 onClick={() => handleAddToCart(currentProduct)}
-                                className="cursor-pointer bg-amber-500  flex gap-2 items-center text-white px-8 py-[20px] rounded-md hover:bg-amber-600 ">
+                                className="cursor-pointer bg-amber-500 flex gap-2 items-center text-white px-8 py-[20px] rounded-md hover:bg-amber-600 ">
                                 <ShoppingCart size={20} className="text-white"/>
                                 Add to Cart
-                            </Button> : <CartCounter product={currentProduct} />}
+                            </Button> : <CartCounter id={currentProduct.id} />}
                             {existingWishList ?
                                 (
                                     <Button

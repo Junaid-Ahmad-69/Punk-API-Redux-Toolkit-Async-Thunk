@@ -7,6 +7,7 @@ import EmptyPlaceholder from "@/components/EmptyPlaceholder";
 import cartPlaceholder from '../../../src/assets/images/cart/cart.svg'
 import {removeFromCart} from "@/features/cart/slice.ts";
 import {formattedCurrency} from "../../../utils/helper.ts";
+import CartCounter from "@/components/Cart/cartCounter.tsx";
 
 const Cart = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -37,22 +38,22 @@ const Cart = () => {
                             <>
                                 <ul className='mb-8'>
                                     {cartLists.map((cart) => (
-                                        <li key={cart.id} className='bg-gray-200 m-2 p-2 rounded-md'>
-                                            <div className='flex items-center relative gap-5'>
+                                        <li key={cart.id} className='bg-gray-200 h-28 m-2 mb-4 p-2 rounded-md'>
+                                            <div className='flex items-start relative gap-5'>
                                                 <div
-                                                    className='w-14 h-14 flex bg-white rounded-md p-2 items-center justify-center'>
+                                                    className='w-18 h-24 flex bg-white rounded-md p-2 items-center justify-center'>
                                                     <img
                                                         src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/images/${cart.image}`}
-                                                        width={10} height={10}
                                                         className="rounded-md w-full h-full object-contain"
                                                         alt={cart.name}/>
                                                 </div>
-                                                <div className='flex items-start flex-col'>
+                                                <div className='flex items-start mt-2 justify-start flex-col'>
                                                     <span className="text-sm font-semibold">{cart.name}</span>
-                                                    <span className='text-sm'>{cart.ingredients.yeast}</span>
+                                                    <span className='text-sm mb-2'>{cart.ingredients.yeast}</span>
+                                                    <CartCounter id={cart.id}/>
                                                 </div>
                                                 <span onClick={() => handleRemoveFromCart(cart.id)}
-                                                      className='text-gray-500 cursor-pointer absolute -top-1 right-1'><X
+                                                      className='text-gray-500 cursor-pointer absolute top-0 right-1'><X
                                                     width={14}/></span>
                                             </div>
                                         </li>
