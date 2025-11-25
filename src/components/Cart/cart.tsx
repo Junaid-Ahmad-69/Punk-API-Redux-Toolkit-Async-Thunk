@@ -8,6 +8,7 @@ import cartPlaceholder from '../../../src/assets/images/cart/cart.svg'
 import {removeFromCart} from "@/features/cart/slice.ts";
 import {formattedCurrency} from "../../../utils/helper.ts";
 import CartCounter from "@/components/Cart/cartCounter.tsx";
+import {Badge} from "@/components/ui/badge.tsx";
 
 const Cart = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -24,7 +25,16 @@ const Cart = () => {
 
     return (
         <>
-            <span className='cursor-pointer' onClick={handleOpenSheet}> <ShoppingCart/> </span>
+                <span
+                    className='cursor-pointer relative bg-yellow-500 h-8 w-8 rounded-md  inline-flex items-center justify-center'
+                    onClick={handleOpenSheet}>
+                    <ShoppingCart className='text-white'/>
+                    {cartLists.length > 0 && <Badge
+                        className="h-5 min-w-5 absolute -top-2.5 -right-2 rounded-full px-1 text-white  bg-slate-400 font-mono ">
+                        {cartLists.length}
+                    </Badge>}
+                </span>
+
             <GSheet
                 open={openSheet}
                 titleClass='text-2xl'
