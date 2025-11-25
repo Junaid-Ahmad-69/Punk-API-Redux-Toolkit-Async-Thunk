@@ -2,7 +2,7 @@ import {toast} from "sonner";
 import type {ToasterMessageProps} from "@/components/Toast/types.ts";
 
 export const ToasterMessage = ({
-type, message, description, duration = 4000, position = "top-right"}: ToasterMessageProps) => {
+type, message, description, duration = 4000, position = "bottom-right"}: ToasterMessageProps) => {
     const toastOptions = {
         description,
         duration,

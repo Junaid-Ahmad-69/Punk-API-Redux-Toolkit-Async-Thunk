@@ -23,3 +23,10 @@ export const setSessionStorage = (key: string, value: never): void => {
 export const clearSessionStorage = (key:string) =>{
     sessionStorage.removeItem(key)
 }
+
+export  const formattedCurrency = (amount: number)=>{
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    }).format(amount);
+}

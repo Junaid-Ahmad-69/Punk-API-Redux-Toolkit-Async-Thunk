@@ -1,6 +1,7 @@
 import {Outlet} from "react-router";
 import AppSidebar from "@/components/Sidebar/sidebar.tsx";
 import {SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar.tsx";
+import Navbar from "@/components/Navbar/navbar.tsx";
 
 const DashboardLayout = () => {
     return (
@@ -9,7 +10,8 @@ const DashboardLayout = () => {
                 <AppSidebar/>
                 <main className="flex-1">
                     <SidebarTrigger className='cursor-pointer'/>
-                    <div className=' p-8'>
+                    <Navbar/>
+                    <div className='p-8'>
                         <Outlet/>
                     </div>
                 </main>
