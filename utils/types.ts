@@ -104,3 +104,9 @@ export interface UserAuth {
     user: UserInfo | null
     error: string | null;
 }
+
+export interface Column<T> {
+    title: string;
+    accessor?: keyof T;
+    render?: (row: T) => React.ReactNode;
+}
