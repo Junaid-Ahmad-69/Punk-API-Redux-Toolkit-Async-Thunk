@@ -1,7 +1,7 @@
 import {Outlet} from "react-router";
-import AppSidebar from "@/components/Sidebar/sidebar.tsx";
+import AppSidebar from "@/components/Sidebar";
 import {SidebarProvider, SidebarTrigger} from "@/components/ui/sidebar.tsx";
-import Navbar from "@/components/Navbar/navbar.tsx";
+import Navbar from "@/components/Navbar";
 
 const DashboardLayout = () => {
     return (

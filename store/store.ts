@@ -6,6 +6,7 @@ import loaderSlice from "@/features/loader/slice.ts";
 import userAuthSlice from "@/features/auth/slice.ts";
 import wishlistSlice from "@/features/wishlist/slice.ts";
 import cartSlice from "@/features/cart/slice.ts";
+import noteSlice from "@/features/note/slice.ts";
 
 const rootReducer = combineReducers({
     beer: beerSlice.reducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     userAuth: userAuthSlice.reducer,
     wishListReducer: wishlistSlice.reducer,
     cartReducer: cartSlice.reducer,
+    noteReducer: noteSlice.reducer,
 });
 
 const persistConfig = {

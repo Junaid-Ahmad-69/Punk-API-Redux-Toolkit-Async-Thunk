@@ -24,7 +24,7 @@ interface Props {
     descriptionClass?: string
 }
 
-const GSheet = ({
+const GSheet= ({
                     open,
                     onOpenChange,
                     content,
