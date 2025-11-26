@@ -1,4 +1,4 @@
-import GButton from "@/components/Button/Button.tsx";
+import GButton from "@/components/Button";
 import {useDispatch, useSelector} from "react-redux";
 import type {AppDispatch, RootState} from "../../../store/store.ts";
 import {updateQty} from "@/features/cart/slice.ts";
@@ -23,11 +23,11 @@ const CartCounter = ({id}: { id: string }) => {
     return (
         <div className='flex items-center gap-3'>
             <GButton
-                onclick={handleDecrement}
+                onClick={handleDecrement}
                 className='rounded-md p-3 h-8 hover:bg-yellow-500 hover:border-yellow-500 duration-500 transition-all text-black text-lg hover:text-white bg-transparent border  border-yellow-300 ease-in-out '> - </GButton>
             {item.productQty}
             <GButton
-                onclick={handleIncrement}
+                onClick={handleIncrement}
                 className='rounded-md p-3 h-8 hover:bg-yellow-500 hover:border-yellow-500  duration-500 transition-all text-black text-lg hover:text-white bg-transparent border border-yellow-300 ease-in-out '> + </GButton>
         </div>
     )

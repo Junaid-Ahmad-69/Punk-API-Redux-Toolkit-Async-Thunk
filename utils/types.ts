@@ -83,7 +83,11 @@ export interface BeersList {
     target_og:
         number;
     volume:
-        { value: number, unit: string }
+        { value: number, unit: string },
+    note?: {
+        id: string;
+        note: string;
+    }
 }
 
 export interface LoaderState {
@@ -109,4 +113,11 @@ export interface Column<T> {
     title: string;
     accessor?: keyof T;
     render?: (row: T) => React.ReactNode;
+}
+
+export interface BeerWithNotes  extends BeersList{
+    note: {
+        id: string;
+        note: string;
+    };
 }

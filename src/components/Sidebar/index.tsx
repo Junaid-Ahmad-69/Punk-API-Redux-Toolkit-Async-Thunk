@@ -12,7 +12,7 @@ import {
 import {Home, Heart} from "lucide-react"
 
 import {HomeRoute, Wishlist} from "../../../Routes/Route.tsx";
-import GDropdown from "@/components/Dropdown/dropdown.tsx";
+import GDropdown from "@/components/Dropdown";
 import Logo from '../../../public/logo.png'
 import {useLocation} from "react-router";
 const items = [

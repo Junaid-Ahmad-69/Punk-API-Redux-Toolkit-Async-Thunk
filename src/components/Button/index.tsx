@@ -4,6 +4,7 @@ import { Button} from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 
+
 interface ButtonProps {
     loading?: boolean;
     loadingText?: string;
@@ -12,15 +13,15 @@ interface ButtonProps {
     children?: React.ReactNode;
     className?: string;
     disabled?: boolean
-    onclick?: () => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const GButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ loading = false, onclick, disabled= false, loadingText, children, leftIcon, rightIcon, className, ...props }, ref) => {
+    ({ loading = false, onClick, disabled= false, loadingText, children, leftIcon, rightIcon, className, ...props }, ref) => {
         return (
             <Button
                 ref={ref}
-                onClick={onclick}
+                onClick={onClick}
                 className={cn("relative cursor-pointer hover:bg-transparent hover:text-black flex items-center justify-center gap-2", className)}
                 disabled={disabled || loading}
                 {...props}

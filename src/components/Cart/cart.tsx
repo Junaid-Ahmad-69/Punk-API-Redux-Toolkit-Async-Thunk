@@ -1,6 +1,6 @@
 import {ShoppingCart, X} from "lucide-react";
 import {useState} from "react";
-import GSheet from "@/components/GSheet/g-sheet.tsx";
+import Index from "@/components/GSheet";
 import {useDispatch, useSelector} from "react-redux";
 import type {AppDispatch, RootState} from "../../../store/store.ts";
 import EmptyPlaceholder from "@/components/EmptyPlaceholder";
@@ -35,7 +35,7 @@ const Cart = () => {
                     </Badge>}
                 </span>
 
-            <GSheet
+            <Index
                 open={openSheet}
                 titleClass='text-2xl'
                 descriptionClass='text-lg'
