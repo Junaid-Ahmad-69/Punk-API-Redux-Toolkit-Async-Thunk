@@ -5,37 +5,44 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
-import type {BeersList} from "../../../utils/types.ts";
+} from "@/components/ui/table";
+import type {Column} from "../../../utils/types.ts";
 
-export const DataTable = ({heading, list, handleRowClick}: { heading: string[], list: BeersList[], handleRowClick: (id: string)=> void }) => {
+
+export function DataTable<T>({
+                                 columns,
+                                 data,
+                                 onRowClick,
+                             }: {
+    columns: Column<T>[];
+    data: T[];
+    onRowClick?: (row: T) => void;
+}) {
     return (
         <Table>
             <TableHeader>
                 <TableRow>
-                    {heading.map(title => <TableHead className="font-[Lato-Bold]" key={title}>{title}</TableHead>)}
+                    {columns.map(col => (
+                        <TableHead className="font-semibold" key={col.title}>{col.title}</TableHead>
+                    ))}
                 </TableRow>
             </TableHeader>
+
             <TableBody>
-                {list.length > 0 && list?.map(item => {
-                    return (
-                        <TableRow key={item.id}>
-                            <TableCell>{item.id}</TableCell>
-                            <TableCell className="cursor-pointer" onClick={()=> handleRowClick(JSON.stringify(item.id))}>{item.name}</TableCell>
-                            <TableCell><img width={20} height={20}
-                                            src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/images/${item.image}`}
-                                            alt={item.name}/></TableCell>
-                            <TableCell>{item.first_brewed}</TableCell>
-                            <TableCell>{item.ph}</TableCell>
-                            <TableCell>{item.tagline}</TableCell>
-                            <TableCell>{item.ingredients.yeast}</TableCell>
-                            <TableCell>{item.volume.value} Liters</TableCell>
-                            <TableCell>{item.ibu}</TableCell>
-                        </TableRow>
-                    )
-                })}
+                {data.map((row, idx) => (
+                    <TableRow
+                        key={idx}
+                        className={onRowClick ? "cursor-pointer" : ""}
+                        onClick={() => onRowClick?.(row)}
+                    >
+                        {columns.map(col => (
+                            <TableCell key={col.title}>
+                                {col.render ? col.render(row) : (row[col.accessor!] as never)}
+                            </TableCell>
+                        ))}
+                    </TableRow>
+                ))}
             </TableBody>
         </Table>
-
     );
-};
+}

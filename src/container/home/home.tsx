@@ -4,13 +4,16 @@ import type {AppDispatch, RootState} from "../../../store/store.ts";
 import {fetchBeers} from "@/features/beer/actions.ts";
 import {DataTable} from "@/components/Table";
 import PaginationList from "@/components/Pagination";
-import {HomeHeading} from "../../../constants/data.tsx";
+// import {HomeHeading} from "../../../constants/data.tsx";
 import {useNavigate} from "react-router";
 import {ViewBeerDetail} from "../../../Routes/Route.tsx";
 import {setABV, setPage, setIBU, setEBC, setFood} from "@/features/beer/slice.ts";
 import Filters from "@/components/Filters";
 import EmptyPlaceholder from "@/components/EmptyPlaceholder";
 import NoBeerPlaceholder from "../../assets/images/home/no-beer.svg"
+import type {BeersList, Column} from "../../../utils/types.ts";
+import GButton from "@/components/Button/Button.tsx";
+import {Plus} from "lucide-react";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -26,6 +29,11 @@ const Home = () => {
         ebc_gt,
         food
     } = useSelector((state: RootState) => state.beer);
+
+
+    const handleChange = (value: number) => dispatch(setPage(value))
+    const handleNavigate = (id: string) => navigate(ViewBeerDetail.replace(":id", id));
+
 
     useEffect(() => {
         dispatch(fetchBeers({
@@ -51,21 +59,50 @@ const Home = () => {
         }
     }, [page, limit, abv_gt, ibu_gt, ebc_gt, food]);
 
+    const beerColumns: Column<BeersList>[] = [
+        {title: "ID", accessor: "id"},
+        {title: "Name", accessor: "name"},
+        {
+            title: "Image",
+            render: row => (
+                <div className='w-20 h-20'>
+                    <img
+                        alt={row.name}
+                        className='w-full h-full object-contain'
+                        src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/images/${row.image}`}
+                    />
+                </div>
+            ),
+        },
 
+        {title: "First Brewed", accessor: "first_brewed"},
+        {title: "PH", accessor: "ph"},
+        {title: "Tagline", accessor: "tagline"},
+        {title: "EBC", accessor: "ebc"},
 
-    /*
-    NEED WHEN YOU COMPLETE OPTIMIZED THE REQUEST WITHOUT PERSIST FILTER
-     useDebouncedEffect(() => {
-        dispatch(fetchBeers({
-            page,
-            per_page: limit,
-            abv_gt,
-            ibu_gt,
-            ebc_gt,
-            food,
-        }))
-    }, [page, limit, abv_gt, ibu_gt, ebc_gt, food], 500, true);
-     */
+        {
+            title: "Yeast",
+            render: row => (
+                <div>
+                    {row.ingredients.yeast}
+                </div>
+            ),
+        },
+        {title: "SRM", accessor: "srm"},
+        {
+            title: "Actions",
+            render: () => (
+                <div className="flex gap-2">
+                    <GButton className='text-white'><Plus/></GButton>
+                    <GButton className=''>Edit</GButton>
+                    <GButton>Delete</GButton>
+                </div>
+            ),
+        }
+    ];
+
+    console.log(data)
+
 
     function renderBeerDetails() {
         if (data.length === 0) {
@@ -73,12 +110,8 @@ const Home = () => {
                 <EmptyPlaceholder name={"beer"} url={NoBeerPlaceholder}/>
             )
         } else {
-            return (
-                <>
-                    <DataTable heading={HomeHeading} list={data} handleRowClick={handleNavigate}/>
-
-                </>
-            )
+            return <DataTable columns={beerColumns} data={data} onRowClick={(row) => handleNavigate(row.id)}
+            />
         }
     }
 
@@ -86,8 +119,6 @@ const Home = () => {
     if (error) {
         return <div>Error: {error}</div>;
     }
-    const handleChange = (value: number) => dispatch(setPage(value))
-    const handleNavigate = (id: string) => navigate(ViewBeerDetail.replace(":id", id));
 
     return (
         <>
