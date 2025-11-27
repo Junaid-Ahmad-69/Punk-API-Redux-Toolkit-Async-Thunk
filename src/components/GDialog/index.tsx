@@ -9,19 +9,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog"
 import {cn} from "@/lib/utils.ts";
-
-interface Props {
-    open: boolean
-    onOpenChange: (value: boolean) => void
-    content?: React.ReactNode
-    title?: string
-    description?: string
-    cancelText?: string
-    confirmText?: string
-    handleSave: () => void
-    titleClass?: string
-    descriptionClass?: string
-}
+import type {IGDialog} from "@/components/GDialog/type.ts";
 
 const GDialog = ({
                      open,
@@ -34,7 +22,7 @@ const GDialog = ({
                      handleSave,
                      descriptionClass,
                      titleClass
-                 }: Props) => {
+                 }: IGDialog) => {
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[425px]">

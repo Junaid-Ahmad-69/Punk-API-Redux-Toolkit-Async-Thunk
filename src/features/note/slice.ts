@@ -1,18 +1,9 @@
 import {getSessionStorage, setSessionStorage} from "../../../utils/helper.ts";
 import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import {ToasterMessage} from "@/components/Toast";
-
-interface Note {
-    id: string;
-    note: string;
-}
-
-interface NoteState {
-    notes: Note[]
-}
+import type {Note, NoteState} from "../../../utils/types.ts";
 
 const storedNote = JSON.parse(getSessionStorage('note') || '[]');
-
 
 const initialState: NoteState = {
     notes: storedNote,

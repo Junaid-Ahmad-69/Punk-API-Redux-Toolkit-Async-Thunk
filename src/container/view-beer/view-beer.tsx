@@ -7,8 +7,8 @@ import {Button} from "@/components/ui/button.tsx";
 import {Clock, Heart, ShoppingCart, Target, Thermometer} from "lucide-react";
 import BadgeItem from "@/components/Badge";
 import {addItem, removeItem} from "@/features/wishlist/slice.ts";
-import type {BeersList} from "../../../utils/types.ts";
-import {addToCart, type CartListItems} from "@/features/cart/slice.ts";
+import type {BeersList, CartListItems} from "../../../utils/types.ts";
+import {addToCart} from "@/features/cart/slice.ts";
 import CartCounter from "@/components/Cart/cart-counter.tsx";
 
 const ViewBeer = () => {

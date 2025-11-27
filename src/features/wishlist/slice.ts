@@ -1,12 +1,7 @@
 import { createSlice,  type PayloadAction  } from '@reduxjs/toolkit';
 import {ToasterMessage} from "@/components/Toast";
-import type {BeersList} from "../../../utils/types.ts";
+import type {BeersList, WishlistState} from "../../../utils/types.ts";
 import {clearSessionStorage, setSessionStorage} from "../../../utils/helper.ts";
-
-
-interface WishlistState {
-    items: BeersList[];
-}
 
 const initialState: WishlistState = {
     items: JSON.parse(sessionStorage.getItem('wishlist') || '[]'),

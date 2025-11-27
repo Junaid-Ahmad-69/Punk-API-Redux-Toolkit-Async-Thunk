@@ -5,18 +5,14 @@ import {
     PaginationLink, PaginationNext,
     PaginationPrevious
 } from "@/components/ui/pagination.tsx";
+import type {IPagination} from "@/components/Pagination/type.ts";
 
 const PaginationList = ({
                             defaultPage,
                             handleChange,
                             totalCount,
                             limit
-                        }: {
-    limit: number;
-    defaultPage: number;
-    totalCount: number;
-    handleChange: (page: number) => void;
-}) => {
+                        }: IPagination) => {
     const totalPages: number = Math.ceil(totalCount / limit);
     const MaxCountShow: number = 3;
     const pages: (number | string)[] = [];

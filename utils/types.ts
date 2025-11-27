@@ -121,3 +121,27 @@ export interface BeerWithNotes  extends BeersList{
         note: string;
     };
 }
+
+export interface CartListItems extends BeersList{
+    price: number,
+    productQty: number,
+}
+
+export interface CartListsProps {
+    cartLists: CartListItems[];
+    cartTotal: number;
+}
+
+export interface Note {
+    id: string;
+    note: string;
+}
+
+export interface NoteState {
+    notes: Note[]
+}
+
+
+export interface WishlistState {
+    items: BeersList[];
+}
