@@ -9,7 +9,7 @@ import BadgeItem from "@/components/Badge";
 import {addItem, removeItem} from "@/features/wishlist/slice.ts";
 import type {BeersList} from "../../../utils/types.ts";
 import {addToCart, type CartListItems} from "@/features/cart/slice.ts";
-import CartCounter from "@/components/Cart/cartCounter.tsx";
+import CartCounter from "@/components/Cart/cart-counter.tsx";
 
 const ViewBeer = () => {
     const {id} = useParams();

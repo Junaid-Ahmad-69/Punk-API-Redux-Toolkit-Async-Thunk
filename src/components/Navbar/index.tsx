@@ -1,4 +1,4 @@
-import Cart from "@/components/Cart/cart.tsx";
+import Cart from "@/components/Cart";
 
 const Navbar = () => {
     return (
