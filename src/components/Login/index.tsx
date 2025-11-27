@@ -1,7 +1,7 @@
 import {type ChangeEvent, useState} from "react";
 import {InputWithLabel} from "@/components/Input";
 import {Button} from "@/components/ui/button.tsx";
-import {loginSchema} from "@/schemas/loginSchema.tsx";
+import {loginSchema} from "@/schemas/login-schema.tsx";
 import {useNavigate} from "react-router";
 import {useDispatch} from "react-redux";
 import {loginWithEmail} from "@/features/auth/actions.ts";

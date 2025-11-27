@@ -16,9 +16,9 @@ import GPopover from "@/components/GPopover";
 import GButton from "@/components/Button";
 import GTooltip from "@/components/GTooltip";
 import GDialog from "@/components/GDialog";
-import {Input} from "@/components/ui/input.tsx";
-import {Label} from "@/components/ui/label.tsx";
 import {updateNote, deleteNote} from "@/features/note/slice.ts";
+import {noteSchema} from "@/schemas/note-schema.tsx";
+import {InputWithLabel} from "@/components/Input";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -42,7 +42,7 @@ const Home = () => {
     const [noteId, setNoteId] = useState<string | null>(null);
     const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
     const noteText = useRef<HTMLInputElement>(null);
-
+    const [noteError, setNoteError] = useState("");
 
     const handleChange = (value: number) => dispatch(setPage(value))
     const handleNavigate = (id: string) => navigate(ViewBeerDetail.replace(":id", id));
@@ -50,6 +50,7 @@ const Home = () => {
     const handleOpenNoteModal = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: string, action: "add" | "edit" | "delete") => {
         e.stopPropagation()
         setNoteId(id)
+        setNoteError("");
         if (action === "delete") {
             setOpenDeleteModal(true);
             return;
@@ -64,53 +65,35 @@ const Home = () => {
         }, 10);
     };
 
-    const handleSaveNote = () => {
+    const validateForm = () => {
+        const value = noteText.current?.value ?? "";
+        const msgError = noteSchema.validate(
+            { note: value },
+            { abortEarly: false }
+        );
+        if (!msgError.error) return true;
+        const newError = msgError.error.details[0].message;
+        setNoteError(newError);
+        return false;
+    };
+
+
+    const handleSaveNote = (e?: React.FormEvent) => {
+        if (e) e.preventDefault();
         if (!noteId) return
-        dispatch(updateNote({
-            id: noteId,
-            note: noteText?.current?.value ?? ""
-        }));
+        if (validateForm()) {
+            dispatch(updateNote({
+                id: noteId,
+                note: noteText?.current?.value ?? ""
+            }))
+            setNoteModalOpen(false);
+        }
     }
 
     const handleDeleteNote = () => {
         if (!noteId) return
         dispatch(deleteNote({id: noteId}))
     }
-
-
-    useEffect(() => {
-        dispatch(fetchBeers({
-            page,
-            per_page: limit,
-        }))
-    }, []);
-
-    useEffect(() => {
-        if (data.length) {
-            const updated = data.map(row => ({
-                ...row,
-                note: notes.find(n => n.id === row.id) ?? {id: row.id, note: "-"},
-            }));
-            setTableRow(updated);
-        }
-    }, [data, notes]);
-
-
-    useEffect(() => {
-        const interval = setTimeout(() => {
-            dispatch(fetchBeers({
-                page,
-                per_page: limit,
-                abv_gt,
-                ibu_gt,
-                ebc_gt,
-                food,
-            }))
-        }, 500)
-        return () => {
-            clearTimeout(interval)
-        }
-    }, [page, limit, abv_gt, ibu_gt, ebc_gt, food]);
 
     const beerColumns: Column<BeersList>[] = [
         {title: "ID", accessor: "id"},
@@ -177,6 +160,41 @@ const Home = () => {
                 </GPopover>),
         }
     ];
+
+
+    useEffect(() => {
+        dispatch(fetchBeers({
+            page,
+            per_page: limit,
+        }))
+    }, []);
+
+    useEffect(() => {
+        if (data.length) {
+            const updated = data.map(row => ({
+                ...row,
+                note: notes.find(n => n.id === row.id) ?? {id: row.id, note: "-"},
+            }));
+            setTableRow(updated);
+        }
+    }, [data, notes]);
+
+
+    useEffect(() => {
+        const interval = setTimeout(() => {
+            dispatch(fetchBeers({
+                page,
+                per_page: limit,
+                abv_gt,
+                ibu_gt,
+                ebc_gt,
+                food,
+            }))
+        }, 500)
+        return () => {
+            clearTimeout(interval)
+        }
+    }, [page, limit, abv_gt, ibu_gt, ebc_gt, food]);
 
 
     function renderBeerDetails() {
@@ -253,18 +271,21 @@ const Home = () => {
                     onOpenChange={setNoteModalOpen}
                     handleSave={() => {
                         handleSaveNote()
-                        setNoteModalOpen(false)
                     }}
                     content={
-                        <>
-                            <Label htmlFor="addNote">Add Note</Label>
-                            <Input
-                                ref={noteText}
-                                id="addNote"
-                                className="h-8 w-full"
-                                placeholder={"Enter note..."}
-                            />
-                        </>
+                        <form onSubmit={handleSaveNote}>
+                            <div className="mb-4">
+                                <InputWithLabel
+                                    label={'Note'}
+                                    type={'name'}
+                                    name={'note'}
+                                    inputRef={noteText}
+                                    classStyle={noteError ? 'border border-red-500' : ''}
+                                    placeholder={'Please write note....'}
+                                    />
+                                {noteError && <div className="text-xs pt-1 pl-1 text-red-500">{noteError}</div>}
+                            </div>
+                        </form>
                     }
                     title="Added Your Note"
                     description="Please Enter the detail note for the beer."

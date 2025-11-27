@@ -1,13 +1,13 @@
 import {ShoppingCart, X} from "lucide-react";
 import {useState} from "react";
-import Index from "@/components/GSheet";
+import GSheet from "@/components/GSheet";
 import {useDispatch, useSelector} from "react-redux";
 import type {AppDispatch, RootState} from "../../../store/store.ts";
 import EmptyPlaceholder from "@/components/EmptyPlaceholder";
 import cartPlaceholder from '../../../src/assets/images/cart/cart.svg'
 import {removeFromCart} from "@/features/cart/slice.ts";
 import {formattedCurrency} from "../../../utils/helper.ts";
-import CartCounter from "@/components/Cart/cartCounter.tsx";
+import CartCounter from "@/components/Cart/cart-counter.tsx";
 import {Badge} from "@/components/ui/badge.tsx";
 
 const Cart = () => {
@@ -35,7 +35,7 @@ const Cart = () => {
                     </Badge>}
                 </span>
 
-            <Index
+            <GSheet
                 open={openSheet}
                 titleClass='text-2xl'
                 descriptionClass='text-lg'
@@ -83,7 +83,7 @@ const Cart = () => {
                     handleOpenSheet();
                     setOpenSheet(false)
                 }}
-                title=" Cart"
+                title="Cart"
             />
 
         </>

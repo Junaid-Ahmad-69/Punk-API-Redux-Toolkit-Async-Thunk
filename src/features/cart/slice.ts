@@ -32,14 +32,14 @@ const cartSlice = createSlice({
                 ToasterMessage({
                     type: "success",
                     message: "Successfully Added!",
-                    description: "Product successfully added to Cart.",
+                    description: "Product successfully added to Index.",
                 });
             }
             else {
                 ToasterMessage({
                     type: "warning",
                     message: "Already Added!",
-                    description: "Product already added to Cart.",
+                    description: "Product already added to Index.",
                 });
             }
             state.cartTotal =  state.cartLists.reduce((acc:number, curr: CartListItems)=> (acc + curr.price) * curr.productQty, 0)

@@ -5,7 +5,7 @@ import PublicRoute from "../Routes/PublicRoute.tsx";
 import PrivateRoute from "../Routes/PrivateRoute.tsx";
 import ViewBeer from "@/container/view-beer/view-beer.tsx";
 import {HomeRoute, LoginRoute, ViewBeerDetail, Wishlist as WishListRoute} from "../Routes/Route.tsx";
-import {NotFound} from "@/container/NotFound";
+import {NotFound} from "@/container/not-found";
 import DashboardLayout from "@/layouts/dashboardLayout.tsx";
 import WishList from "@/container/wishlist/wishlist.tsx";
 
