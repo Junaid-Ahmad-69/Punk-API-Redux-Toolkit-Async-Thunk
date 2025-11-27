@@ -5,13 +5,9 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 import {EllipsisVertical} from "lucide-react";
+import type {IGPopover} from "@/components/GPopover/type.ts";
 
-interface Props {
-    open: boolean,
-    onOpenChange: (value: boolean) => void,
-    children: React.ReactNode,
-}
-const GPopover = ({open , onOpenChange, children}: Props) => {
+const GPopover = ({open , onOpenChange, children}: IGPopover) => {
     return (
         <Popover open={open} onOpenChange={onOpenChange}>
             <PopoverTrigger asChild>

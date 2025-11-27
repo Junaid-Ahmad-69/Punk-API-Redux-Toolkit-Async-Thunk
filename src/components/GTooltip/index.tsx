@@ -1,14 +1,9 @@
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import type {IGTooltip} from "@/components/GTooltip/type.ts";
 
-interface GTooltipProps {
-    text: string;
-    children: React.ReactNode;
-    side?: "top" | "bottom" | "left" | "right";
-    align?: "start" | "center" | "end";
-    className?: string;
-}
 
-const GTooltip = ({ text, children, side = "top", align = "center", className }: GTooltipProps) => {
+
+const GTooltip = ({ text, children, side = "top", align = "center", className }: IGTooltip) => {
     return (
         <Tooltip>
             <TooltipTrigger asChild>

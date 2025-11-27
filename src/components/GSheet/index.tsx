@@ -10,19 +10,8 @@ import {
     SheetTitle,
 } from "@/components/ui/sheet"
 import {cn} from "@/lib/utils.ts";
+import type {IGSheet} from "@/components/GSheet/type.ts";
 
-interface Props {
-    open: boolean
-    onOpenChange: (value: boolean) => void
-    content?: React.ReactNode
-    title?: string
-    description?: string
-    cancelText?: string
-    confirmText?: string
-    handleSave: () => void
-    titleClass?: string
-    descriptionClass?: string
-}
 
 const GSheet= ({
                     open,
@@ -35,7 +24,7 @@ const GSheet= ({
                     handleSave,
                     descriptionClass,
                     titleClass
-                }: Props) => {
+                }: IGSheet) => {
     return (
         <Sheet open={open} onOpenChange={onOpenChange}>
             <SheetContent>

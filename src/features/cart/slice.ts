@@ -1,18 +1,7 @@
 import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import {ToasterMessage} from "@/components/Toast";
-import type {BeersList} from "../../../utils/types.ts";
+import type {CartListItems, CartListsProps} from "../../../utils/types.ts";
 import {getSessionStorage, setSessionStorage} from "../../../utils/helper.ts";
-
-
-export interface CartListItems extends BeersList{
-    price: number,
-    productQty: number,
-}
-
-interface CartListsProps {
-    cartLists: CartListItems[];
-    cartTotal: number;
-}
 
 const storedCart = JSON.parse(getSessionStorage('cart') || '[]');
 
