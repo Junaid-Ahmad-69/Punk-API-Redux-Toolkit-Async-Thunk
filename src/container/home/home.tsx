@@ -105,7 +105,7 @@ const Home = () => {
                     <img
                         alt={row.name}
                         className='w-full h-full object-contain'
-                        src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/images/${row.image}`}
+                        src={`${import.meta.env.VITE_REACT_APP_BASE_URL_IMAGE}/${row.image}`}
                     />
                 </div>
             ),
