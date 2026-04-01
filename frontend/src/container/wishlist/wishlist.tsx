@@ -7,7 +7,7 @@ import {ViewBeerDetail} from "../../../Routes/Route.tsx";
 import {useState} from "react";
 import Index from "@/components/GDialog";
 import EmptyPlaceholder from "@/components/EmptyPlaceholder";
-import EmptyPlaceholderImage from '../../../src/assets/images/wishlist/wishlist-empty.svg'
+import EmptyPlaceholderImage from '../../assets/images/wishlist/wishlist-empty.svg'
 
 const WishList = () => {
     const dispatch = useDispatch<AppDispatch>();

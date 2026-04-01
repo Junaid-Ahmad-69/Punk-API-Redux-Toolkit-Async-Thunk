@@ -1,0 +1,6 @@
+export const  HomeRoute = "/"
+export const LoginRoute = "/login"
+export const ViewBeerDetail = "/view-beer/:id"
+export const Wishlist = "/wishlist"
+export const SuccessPaymentRoute = "/success-payment"
+export const CancelPaymentRoute = "/cancel-payment"

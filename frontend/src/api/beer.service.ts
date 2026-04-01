@@ -1,4 +1,4 @@
-import axiosInstance from './axiosInstance';
+import axiosInstance from './axiosInstance.ts';
 import type {FetchBeerParam, FetchBeersParams} from "../../utils/types.ts";
 import {cleanParams} from "../../utils/helper.ts";
 
