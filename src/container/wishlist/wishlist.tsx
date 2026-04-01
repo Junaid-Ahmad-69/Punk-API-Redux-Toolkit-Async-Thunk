@@ -52,7 +52,7 @@ const WishList = () => {
                     <li key={item.id} className="flex items-center justify-between w-full p-2 border-b">
                         <div className="flex items-center gap-5">
                             <div>{item.name}</div>
-                            <img src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/images/${item.image}`} alt={item.name}
+                            <img src={`${import.meta.env.VITE_REACT_APP_BASE_URL_IMAGE}/${item.image}`} alt={item.name}
                                  width={16} height={16}/>
                         </div>
                         <div className='flex items-center gap-4'>

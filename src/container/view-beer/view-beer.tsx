@@ -57,7 +57,7 @@ const ViewBeer = () => {
                 <div className="flex flex-wrap lg:flex-nowrap gap-10 -mx-4">
                     <div className="w-full bg-slate-200 md:w-1/2 h-[44rem] rounded-lg overflow-hidden mb-8">
                         <img
-                            src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/images/${currentProduct.image}`}
+                            src={`${import.meta.env.VITE_REACT_APP_BASE_URL_IMAGE}/${currentProduct.image}`}
                             alt="Product" className="w-full h-full p-8 object-contain rounded-lg shadow-md mb-4"
                             id="mainImage"/>
                     </div>

@@ -53,7 +53,7 @@ const Cart = () => {
                                                 <div
                                                     className='w-18 h-24 flex bg-white rounded-md p-2 items-center justify-center'>
                                                     <img
-                                                        src={`${import.meta.env.VITE_REACT_APP_BASE_URL}/images/${cart.image}`}
+                                                        src={`${import.meta.env.VITE_REACT_APP_BASE_URL_IMAGE}/${cart.image}`}
                                                         className="rounded-md w-full h-full object-contain"
                                                         alt={cart.name}/>
                                                 </div>
