@@ -1,4 +1,4 @@
-import {fetchBeer, fetchBeers} from './actions';
+import {fetchBeer, fetchBeers} from './actions.ts';
 import type {ActionReducerMapBuilder} from "@reduxjs/toolkit";
 import type { BeerState} from "../../../utils/types.ts";
 

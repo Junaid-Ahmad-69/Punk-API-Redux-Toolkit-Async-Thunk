@@ -7,7 +7,7 @@ import {
 import {useSelector} from "react-redux";
 import type {RootState} from "../../../store/store.ts";
 import type {UserInfo} from "../../../utils/types.ts";
-import Avatar from '../../../src/assets/images/avatar.png'
+import Avatar from '../../assets/images/avatar.png'
 import Logout from "@/components/GoogleActions/logout.tsx";
 import {useSidebar} from "@/components/ui/sidebar.tsx";
 

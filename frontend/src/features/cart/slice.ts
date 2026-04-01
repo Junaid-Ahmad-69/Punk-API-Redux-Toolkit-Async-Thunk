@@ -6,54 +6,57 @@ import {getSessionStorage, setSessionStorage} from "../../../utils/helper.ts";
 const storedCart = JSON.parse(getSessionStorage('cart') || '[]');
 
 const initialState: CartListsProps = {
-    cartLists:storedCart,
-    cartTotal: storedCart.reduce((acc: number, curr: CartListItems)=> (acc + curr.price) * Number(curr.productQty), 0),
+    cartLists: storedCart,
+    cartTotal: storedCart.reduce((acc: number, curr: CartListItems) => (acc + curr.price) * Number(curr.productQty), 0),
 };
 
 const cartSlice = createSlice({
     name: "cart",
     initialState,
-    reducers:{
+    reducers: {
         addToCart: (state, action: PayloadAction<CartListItems>) => {
-            const exitingProduct = state.cartLists.find(item=> item.id === action.payload.id);
-            if(!exitingProduct){
+            const exitingProduct = state.cartLists.find(item => item.id === action.payload.id);
+            if (!exitingProduct) {
                 state.cartLists.push(action.payload);
                 ToasterMessage({
                     type: "success",
                     message: "Successfully Added!",
                     description: "Product successfully added to Index.",
                 });
-            }
-            else {
+            } else {
                 ToasterMessage({
                     type: "warning",
                     message: "Already Added!",
                     description: "Product already added to Index.",
                 });
             }
-            state.cartTotal =  state.cartLists.reduce((acc:number, curr: CartListItems)=> (acc + curr.price) * curr.productQty, 0)
+            state.cartTotal = state.cartLists.reduce((acc: number, curr: CartListItems) => (acc + curr.price) * curr.productQty, 0)
             setSessionStorage('cart', state.cartLists);
         },
         removeFromCart: (state, action: PayloadAction<string>) => {
-            state.cartLists = state.cartLists.filter(item=> item.id != action.payload);
+            state.cartLists = state.cartLists.filter(item => item.id != action.payload);
             setSessionStorage('cart', state.cartLists);
             ToasterMessage({
                 type: "success",
                 message: "Successfully Removed!",
                 description: "Product successfully removed from cart.",
             });
-            state.cartTotal =  state.cartLists.reduce((acc:number, curr: CartListItems)=> (acc + curr.price) * curr.productQty, 0)
+            state.cartTotal = state.cartLists.reduce((acc: number, curr: CartListItems) => (acc + curr.price) * curr.productQty, 0)
         },
         updateQty: (state, action: PayloadAction<{ id: string, qty: number }>) => {
-            const item = state.cartLists.find(item=>item.id === action.payload.id);
-            if(item){
+            const item = state.cartLists.find(item => item.id === action.payload.id);
+            if (item) {
                 item.productQty = action.payload.qty;
-                state.cartTotal = state.cartLists.reduce((acc: number, curr: CartListItems)=> acc + curr.price * curr.productQty, 0)
+                state.cartTotal = state.cartLists.reduce((acc: number, curr: CartListItems) => acc + curr.price * curr.productQty, 0)
                 setSessionStorage('cart', state.cartLists);
             }
-}
+        },
+        clearCart: (state) => {
+            state.cartLists = [];
+            state.cartTotal = 0;
+        },
     }
 })
 
-export const {addToCart, removeFromCart, updateQty} = cartSlice.actions;
+export const {addToCart, removeFromCart, updateQty, clearCart} = cartSlice.actions;
 export default cartSlice
