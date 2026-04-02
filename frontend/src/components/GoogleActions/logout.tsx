@@ -2,7 +2,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {useNavigate} from "react-router";
 import {useDispatch} from "react-redux";
 import {logoutUser} from "@/features/auth/slice.ts";
-import {LoginRoute} from "../../../Routes/Route.tsx";
+import {LoginRoute} from "../../../routes/route.tsx";
 import type {AppDispatch} from "../../../store/store.ts";
 
 

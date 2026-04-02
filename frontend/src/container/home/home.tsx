@@ -5,7 +5,7 @@ import {fetchBeers} from "@/features/beer/actions.ts";
 import {DataTable} from "@/components/Table";
 import PaginationList from "@/components/Pagination";
 import {useNavigate} from "react-router";
-import {ViewBeerDetail} from "../../../Routes/Route.tsx";
+import {ViewBeerDetail} from "../../../routes/route.tsx";
 import {setABV, setPage, setIBU, setEBC, setFood} from "@/features/beer/slice.ts";
 import Filters from "@/components/Filters";
 import EmptyPlaceholder from "@/components/EmptyPlaceholder";

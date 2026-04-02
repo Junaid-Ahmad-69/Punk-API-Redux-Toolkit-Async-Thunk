@@ -145,3 +145,9 @@ export interface NoteState {
 export interface WishlistState {
     items: BeersList[];
 }
+
+export interface StripeState {
+    loading: boolean;
+    error: string | null;
+    checkoutUrl: string | null;
+}

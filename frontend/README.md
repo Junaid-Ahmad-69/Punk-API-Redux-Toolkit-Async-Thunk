@@ -52,3 +52,35 @@ export default tseslint.config({
   },
 })
 ```
+
+
+🛠 Project Setup: Environment Variables
+To run this project locally, you must create two .env files. Follow the templates below:
+
+1. Frontend Configuration
+   Create a .env file in the root of the frontend directory.
+
+Code snippet
+# Main API connection
+VITE_REACT_APP_BASE_URL=
+
+# Google Authentication
+VITE_GOOGLE_CLIENT_ID=your_google_client_id_here
+
+# Image Assets Path
+VITE_REACT_APP_BASE_URL_IMAGE=
+
+# Stripe Public Key (Starts with pk_test_...)
+VITE_STRIPE_CLIENT_KEY=your_stripe_public_key_here
+2. Backend Configuration
+   Create a .env file in the root of the backend directory.
+
+Code snippet
+# Server Port
+PORT=8082
+
+# Stripe Private Key (Starts with sk_test_...)
+STRIPE_SECRET_KEY=your_stripe_secret_key_here
+
+# Backend Image Path (Used for processing)
+BASE_URL_IMAGE=

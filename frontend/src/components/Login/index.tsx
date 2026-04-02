@@ -5,7 +5,7 @@ import {loginSchema} from "@/schemas/login-schema.tsx";
 import {useNavigate} from "react-router";
 import {useDispatch} from "react-redux";
 import {loginWithEmail} from "@/features/auth/actions.ts";
-import {HomeRoute} from "../../../Routes/Route.tsx";
+import {HomeRoute} from "../../../routes/route.tsx";
 import type {AppDispatch} from "../../../store/store.ts";
 
 export default function Login() {
