@@ -10,10 +10,13 @@ import {formattedCurrency} from "../../../utils/helper.ts";
 import CartCounter from "@/components/Cart/cart-counter.tsx";
 import {Badge} from "@/components/ui/badge.tsx";
 import GButton from "@/components/Button";
+import {initiatePayment} from "@/features/stripe/actions.ts";
+import {SpinnerCustom} from "@/components/ui/spinner.tsx";
 
 const Cart = () => {
     const dispatch = useDispatch<AppDispatch>();
     const {cartLists, cartTotal} = useSelector((state: RootState) => state.cartReducer);
+    const {loading: isLoading} = useSelector((state: RootState) => state.stripeReducer);
 
     const [openSheet, setOpenSheet] = useState<boolean>(false);
 
@@ -23,28 +26,8 @@ const Cart = () => {
     const handleRemoveFromCart = (id: string) => {
         dispatch(removeFromCart(id));
     }
-    const handleMakePayment = async () => {
-        try {
-            const body = {products: cartLists};
-
-            const response = await fetch('http://localhost:8082/api/stripe/create-checkout-session', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(body),
-            });
-
-            const session = await response.json();
-
-            if (session.url) {
-                console.log("Redirecting to Stripe URL:", session.url);
-                window.location.assign(session.url);
-            } else {
-                console.error("No redirect URL found in backend response");
-            }
-
-        } catch (err) {
-            console.error("Payment Error:", err);
-        }
+    const handleMakePayment = () => {
+        dispatch(initiatePayment(cartLists));
     };
 
     return (
@@ -102,9 +85,9 @@ const Cart = () => {
                                     </div>
                                 </div>
                                 <div className="w-full mt-auto p-2 self-end">
-                                    <GButton onClick={() => handleMakePayment()}
+                                    <GButton  disabled={isLoading} onClick={() => handleMakePayment()}
                                              className="w-full p-6 hover:bg-amber-600">
-                                        Checkout
+                                        {isLoading &&  <SpinnerCustom/>} Checkout
                                     </GButton>
                                 </div>
                             </>

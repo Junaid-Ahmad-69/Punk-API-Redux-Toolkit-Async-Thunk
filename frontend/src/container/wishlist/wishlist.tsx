@@ -3,7 +3,7 @@ import {clearWishlist, removeItem} from '@/features/wishlist/slice';
 import {useDispatch, useSelector} from "react-redux";
 import GButton from "@/components/Button";
 import {useNavigate} from "react-router";
-import {ViewBeerDetail} from "../../../Routes/Route.tsx";
+import {ViewBeerDetail} from "../../../routes/route.tsx";
 import {useState} from "react";
 import Index from "@/components/GDialog";
 import EmptyPlaceholder from "@/components/EmptyPlaceholder";

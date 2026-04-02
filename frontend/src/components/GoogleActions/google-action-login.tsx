@@ -3,7 +3,7 @@ import {GoogleLogin} from '@react-oauth/google';
 import {useNavigate} from "react-router";
 import {ToasterMessage} from "@/components/Toast";
 import {clearSessionStorage, getSessionStorage} from "../../../utils/helper.ts";
-import {HomeRoute} from "../../../Routes/Route.tsx";
+import {HomeRoute} from "../../../routes/route.tsx";
 import type {AppDispatch} from "../../../store/store.ts";
 import {useDispatch} from "react-redux";
 import {loginWithGoogle} from "@/features/auth/actions.ts";
